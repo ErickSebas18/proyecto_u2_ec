@@ -1,11 +1,14 @@
 package com.uce.edu.demo;
 
+import org.apache.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class ProyectoU2EcApplication implements CommandLineRunner{
+	
+	private static Logger logJava = Logger.getLogger(ProyectoU2EcApplication.class);
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoU2EcApplication.class, args);
@@ -14,7 +17,11 @@ public class ProyectoU2EcApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("Hola Mundo");
+		logJava.debug("LOG DEBUG");
+		logJava.info("LOG INFO");
+		logJava.warn("LOG WARN");
+		logJava.error("LOG ERROR");
+		logJava.fatal("LOG FATAL");
 	}
 
 }
