@@ -1,30 +1,28 @@
-package com.uce.edu.demo.to;
+package com.uce.edu.demo.repository.modelo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "persona")
 public class Persona {
 
-	private int id;
+	@Id
+	@Column(name = "id")
+	private Integer id;
+	@Column(name = "nombre")
 	private String nombre;
+	@Column(name = "apellido")
 	private String apellido;
-	
-	//Constructor por defecto
-	//Se lo debe poner cuando se tiene otro constructor
-	public Persona() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public Persona(int id, String nombre, String apellido) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.apellido = apellido;
-	}
 
 	// SET Y GET
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -1,14 +1,19 @@
 package com.uce.edu.demo.service;
 
-import com.uce.edu.demo.to.Persona;
+import java.util.List;
+
+import com.uce.edu.demo.to.PersonaTo;
 
 public interface IPersonaJdbcService {
 
-	public void guardarPersona(Persona persona);
+	public void guardarPersona(PersonaTo persona);
 	
-	public void actualizar(Persona persona);
+	public void actualizar(PersonaTo persona);
 	
 	public void eliminarPersona(int id);
 	
-	public Persona buscarPersonaId(int id);
+	public PersonaTo buscarPersonaId(int id);
+	
+	public List<PersonaTo> buscarTodos();
+	
 }
