@@ -1,5 +1,7 @@
 package com.uce.edu.demo;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -25,23 +27,31 @@ public class ProyectoU2EcApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 
-		//logJava.info("Con JPA: " + this.personaJPAService.buscarId(4));
 
 		Persona persona = new Persona();
 		//persona.setId(20);
 		persona.setNombre("Domenica");
 		persona.setApellido("Erazo");
+		persona.setCedula("123451");
+		persona.setGenero("F");
 
-		this.personaJPAService.insertar(persona);
+		//this.personaJPAService.insertar(persona);
 		logJava.info("Se ha insertado: " + persona);
 
-		/*persona.setNombre("Kevin");
-		this.personaJPAService.actualizar(persona);
-		logJava.info("Se ha actualizado: " + persona);
-
-		this.personaJPAService.eliminar(1);
-		logJava.info("Se ha eliminado");*/
-
+		Persona persona1 = new Persona();
+		persona1.setNombre("Erick");
+		persona1.setApellido("Erazo");
+		persona1.setCedula("512346");
+		persona1.setGenero("M");
+		//this.personaJPAService.insertar(persona1);
+		
+		logJava.info("Con JPA: " + this.personaJPAService.buscarPorCedula(persona.getCedula()));
+		
+		List<Persona> listPersona = this.personaJPAService.buscarPorApellido("Erazo");
+		for (Persona item:listPersona) {
+			logJava.info("Persona: " + item);
+		}
+		
 	}
 
 }

@@ -13,14 +13,18 @@ import javax.persistence.Table;
 public class Persona {
 
 	@Id
-	@Column(name = "id")
+	@Column(name = "pers_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pers_seq_id")
-	@SequenceGenerator(name = "pers_seq_id", sequenceName = "pers_seq_id", allocationSize = 1) 
+	@SequenceGenerator(name = "pers_seq_id", sequenceName = "pers_seq_id", allocationSize = 1)
 	private Integer id;
-	@Column(name = "nombre")
+	@Column(name = "pers_nombre")
 	private String nombre;
-	@Column(name = "apellido")
+	@Column(name = "pers_apellido")
 	private String apellido;
+	@Column(name = "pers_cedula")
+	private String cedula;
+	@Column(name = "pers_genero")
+	private String genero;
 
 	// SET Y GET
 	public Integer getId() {
@@ -47,9 +51,26 @@ public class Persona {
 		this.apellido = apellido;
 	}
 
+	public String getCedula() {
+		return cedula;
+	}
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
+	}
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
 	@Override
 	public String toString() {
-		return "Persona [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + "]";
+		return "Persona [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", cedula=" + cedula
+				+ ", genero=" + genero + "]";
 	}
 
 }

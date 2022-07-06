@@ -1,5 +1,7 @@
 package com.uce.edu.demo.repository;
 
+import java.util.List;
+
 import com.uce.edu.demo.repository.modelo.Persona;
 
 public interface IPersonaJPARepository {
@@ -12,4 +14,8 @@ public interface IPersonaJPARepository {
 	
 	public void eliminar(Integer id);
  
+	public Persona buscarPorCedula(String cedula);
+	
+	public List<Persona> buscarPorApellido(String apellido);
+	
 }
