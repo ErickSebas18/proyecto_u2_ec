@@ -47,7 +47,9 @@ public class ProyectoU2EcApplication implements CommandLineRunner {
 		
 		logJava.info("Con JPA: " + this.personaJPAService.buscarPorCedula(persona.getCedula()));
 		
-		List<Persona> listPersona = this.personaJPAService.buscarPorApellido("Erazo");
+		//List<Persona> listPersona = this.personaJPAService.buscarPorApellido("Erazo");
+		//List<Persona> listPersona = this.personaJPAService.buscarPorGenero("F");
+		List<Persona> listPersona = this.personaJPAService.buscarPorNombre("Erick");
 		for (Persona item:listPersona) {
 			logJava.info("Persona: " + item);
 		}
