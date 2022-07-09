@@ -22,4 +22,7 @@ public interface IPersonaJPAService {
 
 	public List<Persona> buscarPorNombre(String nombre);
 
+	public int actualizarPorApellido(String apellido, String genero);
+	
+	public int borrarPorGenero(String genero);
 }

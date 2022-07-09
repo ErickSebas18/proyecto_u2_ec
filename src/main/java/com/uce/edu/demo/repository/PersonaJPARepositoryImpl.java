@@ -15,8 +15,9 @@ import com.uce.edu.demo.repository.modelo.Persona;
 @Transactional
 public class PersonaJPARepositoryImpl implements IPersonaJPARepository {
 
+	//interactuar con mi base de datos
 	@PersistenceContext
-	private EntityManager entityManager;
+	private EntityManager entityManager; 
 	
 	@Override
 	public Persona buscarId(Integer id) {
@@ -72,6 +73,24 @@ public class PersonaJPARepositoryImpl implements IPersonaJPARepository {
 		Query jpqlQuery = this.entityManager.createQuery("Select p from Persona p where p.nombre = :nombre");
 		jpqlQuery.setParameter("nombre", nombre);
 		return jpqlQuery.getResultList();
+	}
+
+	@Override
+	public int actualizarPorApellido(String apellido, String genero) {
+		// TODO Auto-generated method stub
+		//Query jpqlQuery = this.entityManager.createQuery();
+		Query jpqlQuery = this.entityManager.createQuery("Update Persona p set p.genero = :genero where p.apellido = :apellido");
+		jpqlQuery.setParameter("genero", genero);
+		jpqlQuery.setParameter("apellido", apellido);
+		return jpqlQuery.executeUpdate();
+	}
+
+	@Override
+	public int borrarPorGenero(String genero) {
+		// TODO Auto-generated method stub
+		Query jpqlQuery = this.entityManager.createQuery("Delete from Persona p where p.genero = :genero");
+		jpqlQuery.setParameter("genero", genero);
+		return jpqlQuery.executeUpdate();
 	}
 
 }
