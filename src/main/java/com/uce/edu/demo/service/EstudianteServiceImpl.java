@@ -1,5 +1,7 @@
 package com.uce.edu.demo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +36,42 @@ public class EstudianteServiceImpl implements IEstudianteService {
 	public void eliminarEstudiante(Integer id) {
 		// TODO Auto-generated method stub
 		this.estudianteRepository.eliminar(id);
+	}
+
+	@Override
+	public Estudiante buscarPorNumeroMatriculaQuery(String numeroMatricula) {
+		// TODO Auto-generated method stub
+		return this.estudianteRepository.buscarPorNumeroMatriculaQuery(numeroMatricula);
+	}
+
+	@Override
+	public int actualizarFacultadCarreraQuery(String facultad, String carrera, Integer id) {
+		// TODO Auto-generated method stub
+		return this.estudianteRepository.actualizarFacultadCarreraQuery(facultad, carrera, id);
+	}
+
+	@Override
+	public List<Estudiante> buscarPorGeneroEstadoCivilTyped(String genero, String estadoCivil) {
+		// TODO Auto-generated method stub
+		return this.estudianteRepository.buscarPorGeneroEstadoCivilTyped(genero, estadoCivil);
+	}
+
+	@Override
+	public Estudiante buscarPorNumeroMatriculaNombreApellidoTyped(String numeroMatricula, String nombre, String apellido) {
+		// TODO Auto-generated method stub
+		return this.estudianteRepository.buscarPorNumeroMatriculaNombreApellidoTyped(numeroMatricula, nombre, apellido);
+	}
+
+	@Override
+	public List<Estudiante> buscarEstudiantePorFacultadOCarreraNamed(String facultad, String carrera) {
+		// TODO Auto-generated method stub
+		return this.estudianteRepository.buscarEstudiantePorFacultadOCarreraNamed(facultad, carrera);
+	}
+
+	@Override
+	public List<Estudiante> buscarporNombreEstadoCivilTypedNamed(String nombre, String estadoCivil){
+		// TODO Auto-generated method stub
+		return this.estudianteRepository.buscarporNombreEstadoCivilTypedNamed(nombre, estadoCivil);
 	}
 
 }
