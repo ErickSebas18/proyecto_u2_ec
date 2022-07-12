@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -15,10 +16,10 @@ import com.uce.edu.demo.repository.modelo.Persona;
 @Transactional
 public class PersonaJPARepositoryImpl implements IPersonaJPARepository {
 
-	//interactuar con mi base de datos
+	// interactuar con mi base de datos
 	@PersistenceContext
-	private EntityManager entityManager; 
-	
+	private EntityManager entityManager;
+
 	@Override
 	public Persona buscarId(Integer id) {
 		// TODO Auto-generated method stub
@@ -48,7 +49,32 @@ public class PersonaJPARepositoryImpl implements IPersonaJPARepository {
 		// TODO Auto-generated method stub
 		Query jpqlQuery = this.entityManager.createQuery("Select p from Persona p where p.cedula = :cedula");
 		jpqlQuery.setParameter("cedula", cedula);
-		return (Persona)jpqlQuery.getSingleResult();
+		return (Persona) jpqlQuery.getSingleResult();
+	}
+
+	@Override
+	public Persona buscarPorCedulaTyped(String cedula) {
+		// TODO Auto-generated method stub
+		TypedQuery<Persona> typedQuery = this.entityManager
+				.createQuery("Select p from Persona p where p.cedula = :cedula", Persona.class);
+		typedQuery.setParameter("cedula", cedula);
+		return typedQuery.getSingleResult();
+	}
+
+	@Override
+	public Persona buscarPorCedulaNamed(String cedula) {
+		// TODO Auto-generated method stub
+		Query jpqlQuery = this.entityManager.createNamedQuery("Persona.buscarPorCedula");
+		jpqlQuery.setParameter("cedula", cedula);
+		return (Persona) jpqlQuery.getSingleResult();
+	}
+
+	@Override
+	public Persona buscarPorCedulaTypedNamed(String cedula) {
+		// TODO Auto-generated method stub
+		TypedQuery<Persona> typedQuery = this.entityManager.createNamedQuery("Persona.buscarPorCedula", Persona.class);
+		typedQuery.setParameter("cedula", cedula);
+		return typedQuery.getSingleResult();
 	}
 
 	@Override
@@ -57,6 +83,15 @@ public class PersonaJPARepositoryImpl implements IPersonaJPARepository {
 		Query jpqlQuery = this.entityManager.createQuery("Select p from Persona p where p.apellido = :apellido");
 		jpqlQuery.setParameter("apellido", apellido);
 		return jpqlQuery.getResultList();
+	}
+
+	@Override
+	public List<Persona> buscarPorNombreApellido(String nombre, String apellido) {
+		// TODO Auto-generated method stub
+		TypedQuery<Persona> typedQuery = this.entityManager.createNamedQuery("Persona.buscarPorNombreApellido", Persona.class);
+		typedQuery.setParameter("nombre", nombre);
+		typedQuery.setParameter("apellido", apellido);
+		return typedQuery.getResultList();
 	}
 
 	@Override
@@ -78,8 +113,9 @@ public class PersonaJPARepositoryImpl implements IPersonaJPARepository {
 	@Override
 	public int actualizarPorApellido(String apellido, String genero) {
 		// TODO Auto-generated method stub
-		//Query jpqlQuery = this.entityManager.createQuery();
-		Query jpqlQuery = this.entityManager.createQuery("Update Persona p set p.genero = :genero where p.apellido = :apellido");
+		// Query jpqlQuery = this.entityManager.createQuery();
+		Query jpqlQuery = this.entityManager
+				.createQuery("Update Persona p set p.genero = :genero where p.apellido = :apellido");
 		jpqlQuery.setParameter("genero", genero);
 		jpqlQuery.setParameter("apellido", apellido);
 		return jpqlQuery.executeUpdate();

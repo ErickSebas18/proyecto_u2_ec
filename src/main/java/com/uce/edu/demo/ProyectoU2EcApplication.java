@@ -28,10 +28,15 @@ public class ProyectoU2EcApplication implements CommandLineRunner {
 		// TODO Auto-generated method stub
 
 
-		//Actualizar con JPQL
-
-		logJava.info("Con JPA se ha actualizado: " + this.personaJPAService.actualizarPorApellido("Erazo", "Ma"));
-		logJava.info("Con JPA se ha eliminado: " + this.personaJPAService.borrarPorGenero("M"));
+		logJava.info("Buscar por cédula Typed: " + this.personaJPAService.buscarPorCedulaTyped("3164214"));
+		logJava.info("Buscar por cédula Named: " + this.personaJPAService.buscarPorCedulaNamed("3164214"));
+		logJava.info("Buscar por cédula Typed / Named: " + this.personaJPAService.buscarPorCedulaTypedNamed("3164214"));
+		
+		List<Persona> personas = this.personaJPAService.buscarPorNombreApellido("Domenica", "Erazo");
+		
+		for (Persona p : personas) {
+			logJava.info("Buscar por nombre y apellido (Typed / Named): " + p);
+		}
 		
 		
 	}
