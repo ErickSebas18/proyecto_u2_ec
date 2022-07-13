@@ -6,6 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -78,6 +81,34 @@ public class PersonaJPARepositoryImpl implements IPersonaJPARepository {
 	}
 
 	@Override
+	public Persona buscarPorCedulaNative(String cedula) {
+		// TODO Auto-generated method stub
+		Query nativeQuery = this.entityManager.createNativeQuery("Select * from persona where pers_cedula = :cedula",
+				Persona.class);
+		nativeQuery.setParameter("cedula", cedula);
+		return (Persona) nativeQuery.getSingleResult();
+	}
+
+	@Override
+	public Persona buscarPorCedulaNamedNative(String cedula) {
+		// TODO Auto-generated method stub
+		TypedQuery<Persona> namedNativeQuery = this.entityManager.createNamedQuery("Persona.buscarPorCedulaNamedNative",
+				Persona.class);
+		namedNativeQuery.setParameter("cedula", cedula);
+		return namedNativeQuery.getSingleResult();
+	}
+
+	@Override
+	public Persona buscarPorCedulaCriteriaApi(String cedula) {
+		// TODO Auto-generated method stub
+		CriteriaBuilder criteriaBuilder= this.entityManager.getCriteriaBuilder();
+		CriteriaQuery<Persona> criteriaQuery= criteriaBuilder.createQuery(Persona.class);
+		Root<Persona> personaRoot= criteriaQuery.from(Persona.class);
+		TypedQuery<Persona> queryFinal = this.entityManager.createQuery(criteriaQuery.select(personaRoot).where(criteriaBuilder.equal(personaRoot.get("cedula"), cedula)));
+		return queryFinal.getSingleResult();
+	}
+
+	@Override
 	public List<Persona> buscarPorApellido(String apellido) {
 		// TODO Auto-generated method stub
 		Query jpqlQuery = this.entityManager.createQuery("Select p from Persona p where p.apellido = :apellido");
@@ -88,7 +119,8 @@ public class PersonaJPARepositoryImpl implements IPersonaJPARepository {
 	@Override
 	public List<Persona> buscarPorNombreApellido(String nombre, String apellido) {
 		// TODO Auto-generated method stub
-		TypedQuery<Persona> typedQuery = this.entityManager.createNamedQuery("Persona.buscarPorNombreApellido", Persona.class);
+		TypedQuery<Persona> typedQuery = this.entityManager.createNamedQuery("Persona.buscarPorNombreApellido",
+				Persona.class);
 		typedQuery.setParameter("nombre", nombre);
 		typedQuery.setParameter("apellido", apellido);
 		return typedQuery.getResultList();
