@@ -74,4 +74,28 @@ public class EstudianteServiceImpl implements IEstudianteService {
 		return this.estudianteRepository.buscarporNombreEstadoCivilTypedNamed(nombre, estadoCivil);
 	}
 
+	@Override
+	public List<Estudiante> buscarPorNombreApellidoNative(String nombre, String apellido) {
+		// TODO Auto-generated method stub
+		return this.estudianteRepository.buscarPorNombreApellidoNative(nombre, apellido);
+	}
+
+	@Override
+	public Estudiante buscarPorNumeroMatriculaNative(String numeroMatricula) {
+		// TODO Auto-generated method stub
+		return this.estudianteRepository.buscarPorNumeroMatriculaNative(numeroMatricula);
+	}
+
+	@Override
+	public List<Estudiante> buscarPorCarreraNamedNative(String carrera) {
+		// TODO Auto-generated method stub
+		return this.estudianteRepository.buscarPorCarreraNamedNative(carrera);
+	}
+
+	@Override
+	public List<Estudiante> buscarPorEstadoCivilOGeneroNamedNative(String estadoCivil, String genero) {
+		// TODO Auto-generated method stub
+		return this.estudianteRepository.buscarPorEstadoCivilOGeneroNamedNative(estadoCivil, genero);
+	}
+
 }

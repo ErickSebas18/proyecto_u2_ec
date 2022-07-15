@@ -26,4 +26,12 @@ public interface IEstudianteRepository {
 	
 	public List<Estudiante> buscarporNombreEstadoCivilTypedNamed(String nombre, String estadoCivil);
 	
+	public List<Estudiante> buscarPorNombreApellidoNative(String nombre, String apellido);
+	
+	public Estudiante buscarPorNumeroMatriculaNative(String numeroMatricula);
+	
+	public List<Estudiante> buscarPorCarreraNamedNative(String carrera);
+	
+	public List<Estudiante> buscarPorEstadoCivilOGeneroNamedNative(String estadoCivil, String genero);
+	
 }

@@ -5,12 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @NamedQuery(name = "Estudiante.buscarEstudiantePorFacultadCarreraNamed", query = "Select e from Estudiante e where e.facultad = :facultad or e.carrera = :carrera order by e.carrera")
 @NamedQuery(name = "Estudiante.buscarporNombreEstadoCivilTypedNamed", query = "Select e from Estudiante e where e.nombre = :nombre or e.estadoCivil = :estadoCivil")
+@NamedNativeQuery(name = "Estudiante.buscarPorCarreraNamedNative", query = "Select * from estudianteu where estu_carrera = :carrera order by estu_carrera", resultClass = Estudiante.class)
+@NamedNativeQuery(name = "Estudiante.buscarPorEstadoCivilOGeneroNamedNative", query = "Select * from estudianteu where estu_estado_civil = :estadoCivil or estu_genero = :genero", resultClass = Estudiante.class)
 @Entity
 @Table(name = "estudianteU")
 public class Estudiante {

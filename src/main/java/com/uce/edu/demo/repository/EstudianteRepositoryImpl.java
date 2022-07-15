@@ -46,7 +46,8 @@ public class EstudianteRepositoryImpl implements IEstudianteRepository {
 	@Override
 	public Estudiante buscarPorNumeroMatriculaQuery(String numeroMatricula) {
 		// TODO Auto-generated method stub
-		Query jpqlQuery = this.entityManager.createQuery("Select e from Estudiante e where e.numeroMatricula=:numeroMatricula");
+		Query jpqlQuery = this.entityManager
+				.createQuery("Select e from Estudiante e where e.numeroMatricula=:numeroMatricula");
 		jpqlQuery.setParameter("numeroMatricula", numeroMatricula);
 		return (Estudiante) jpqlQuery.getSingleResult();
 	}
@@ -74,7 +75,8 @@ public class EstudianteRepositoryImpl implements IEstudianteRepository {
 	}
 
 	@Override
-	public Estudiante buscarPorNumeroMatriculaNombreApellidoTyped(String numeroMatricula, String nombre, String apellido) {
+	public Estudiante buscarPorNumeroMatriculaNombreApellidoTyped(String numeroMatricula, String nombre,
+			String apellido) {
 		// TODO Auto-generated method stub
 		TypedQuery<Estudiante> typedQuery = this.entityManager.createQuery(
 				"Select e from Estudiante e where e.numeroMatricula = :numeroMatricula and e.nombre = :nombre and e.apellido = :apellido order by e.apellido",
@@ -102,6 +104,45 @@ public class EstudianteRepositoryImpl implements IEstudianteRepository {
 		typedNamedQuery.setParameter("nombre", nombre);
 		typedNamedQuery.setParameter("estadoCivil", estadoCivil);
 		return typedNamedQuery.getResultList();
+	}
+
+	@Override
+	public List<Estudiante> buscarPorNombreApellidoNative(String nombre, String apellido) {
+		// TODO Auto-generated method stub
+		Query nativeQuery = this.entityManager.createNativeQuery(
+				"Select * from estudianteu where estu_nombre = :nombre or estu_apellido = :apellido order by estu_nombre",
+				Estudiante.class);
+		nativeQuery.setParameter("nombre", nombre);
+		nativeQuery.setParameter("apellido", apellido);
+		return nativeQuery.getResultList();
+	}
+
+	@Override
+	public Estudiante buscarPorNumeroMatriculaNative(String numeroMatricula) {
+		// TODO Auto-generated method stub
+		Query nativeQuery = this.entityManager.createNativeQuery(
+				"Select * from estudianteu where estu_num_Matricula = :numeroMatricula", Estudiante.class);
+		nativeQuery.setParameter("numeroMatricula", numeroMatricula);
+		return (Estudiante) nativeQuery.getSingleResult();
+	}
+
+	@Override
+	public List<Estudiante> buscarPorCarreraNamedNative(String carrera) {
+		// TODO Auto-generated method stub
+		TypedQuery<Estudiante> namedNativeQuery = this.entityManager
+				.createNamedQuery("Estudiante.buscarPorCarreraNamedNative", Estudiante.class);
+		namedNativeQuery.setParameter("carrera", carrera);
+		return namedNativeQuery.getResultList();
+	}
+
+	@Override
+	public List<Estudiante> buscarPorEstadoCivilOGeneroNamedNative(String estadoCivil, String genero) {
+		// TODO Auto-generated method stub
+		TypedQuery<Estudiante> namedNatiQuery = this.entityManager
+				.createNamedQuery("Estudiante.buscarPorEstadoCivilOGeneroNamedNative", Estudiante.class);
+		namedNatiQuery.setParameter("estadoCivil", estadoCivil);
+		namedNatiQuery.setParameter("genero", genero);
+		return namedNatiQuery.getResultList();
 	}
 
 }

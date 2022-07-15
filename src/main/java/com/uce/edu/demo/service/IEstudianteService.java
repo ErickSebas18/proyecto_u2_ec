@@ -20,9 +20,18 @@ public interface IEstudianteService {
 
 	public List<Estudiante> buscarPorGeneroEstadoCivilTyped(String genero, String estadoCivil);
 
-	public Estudiante buscarPorNumeroMatriculaNombreApellidoTyped(String numeroMatricula, String nombre, String apellido);
+	public Estudiante buscarPorNumeroMatriculaNombreApellidoTyped(String numeroMatricula, String nombre,
+			String apellido);
 
 	public List<Estudiante> buscarEstudiantePorFacultadOCarreraNamed(String facultad, String carrera);
 
 	public List<Estudiante> buscarporNombreEstadoCivilTypedNamed(String nombre, String estadoCivil);
+
+	public List<Estudiante> buscarPorNombreApellidoNative(String nombre, String apellido);
+
+	public Estudiante buscarPorNumeroMatriculaNative(String numeroMatricula);
+
+	public List<Estudiante> buscarPorCarreraNamedNative(String carrera);
+
+	public List<Estudiante> buscarPorEstadoCivilOGeneroNamedNative(String estadoCivil, String genero);
 }
