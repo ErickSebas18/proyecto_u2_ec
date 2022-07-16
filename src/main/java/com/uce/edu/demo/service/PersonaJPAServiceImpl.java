@@ -116,4 +116,10 @@ public class PersonaJPAServiceImpl implements IPersonaJPAService {
 		return this.personaJPARepository.borrarPorGenero(genero);
 	}
 
+	@Override
+	public Persona buscarDinamicamente(String nombre, String apellido, String genero) {
+		// TODO Auto-generated method stub
+		return this.personaJPARepository.buscarDinamicamente(nombre, apellido, genero);
+	}
+
 }

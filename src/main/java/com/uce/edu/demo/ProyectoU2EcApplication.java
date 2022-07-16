@@ -31,25 +31,9 @@ public class ProyectoU2EcApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 		
-		List<Estudiante> estudiantes1 = this.estudianteService.buscarPorNombreApellidoNative("Daniela", "Zeas");
-		for(Estudiante e: estudiantes1) {
-			logJava.info("Buscar por Native: " + e);
-		}
+		logJava.info("Buscar por CriteraAPI Query: " + this.personaJPAService.buscarPorCedulaNamedNative("3164214"));
 		
-		logJava.info("Buscar por Native: " + this.estudianteService.buscarPorNumeroMatriculaNative("36214"));
-		
-		List<Estudiante> estudiantes2 = this.estudianteService.buscarPorCarreraNamedNative("Psicologia");
-		for (Estudiante e : estudiantes2) {
-			logJava.info("Buscar por Named Native: " + e);
-		}
-		
-		List<Estudiante> estudiantes3 = this.estudianteService.buscarPorEstadoCivilOGeneroNamedNative("Soltero", "F");
-		for (Estudiante e : estudiantes3) {
-			logJava.info("Buscar por Named Native: " + e);
-		}
-		
-		
-		
+		logJava.info("Buscar por CriteraAPI Query: " + this.personaJPAService.buscarDinamicamente("Domenica", "Merizalde", "F"));
 		
 	}
 
