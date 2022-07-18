@@ -19,7 +19,7 @@ public class ProyectoU2EcApplication implements CommandLineRunner {
 
 	@Autowired
 	private IPersonaJPAService personaJPAService;
-	
+
 	@Autowired
 	private IEstudianteService estudianteService;
 
@@ -30,11 +30,16 @@ public class ProyectoU2EcApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		
-		logJava.info("Buscar por CriteraAPI Query: " + this.personaJPAService.buscarPorCedulaNamedNative("3164214"));
-		
-		logJava.info("Buscar por CriteraAPI Query: " + this.personaJPAService.buscarDinamicamente("Domenica", "Merizalde", "F"));
-		
+
+		List<Estudiante> estudiantes = this.estudianteService
+				.buscarPorFacultadOCarreraCriteriaQuery("Facultad de Psicologia", "Medicina");
+		for (Estudiante e : estudiantes) {
+			logJava.info("Buscar por CriteraAPI Query: " + e);
+		}
+
+		logJava.info("Buscar por CriteraAPI Query: "
+				+ this.estudianteService.buscarPorNumeroMatriculaNombreApellidoCriteriaQuery("36214", "Ana", "Garcia"));
+
 	}
 
 }

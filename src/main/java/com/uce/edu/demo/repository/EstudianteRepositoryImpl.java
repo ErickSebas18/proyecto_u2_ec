@@ -6,6 +6,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -144,5 +148,36 @@ public class EstudianteRepositoryImpl implements IEstudianteRepository {
 		namedNatiQuery.setParameter("genero", genero);
 		return namedNatiQuery.getResultList();
 	}
+
+	@Override
+	public List<Estudiante> buscarPorFacultadOCarreraCriteriaQuery(String facultad, String carrera) {
+		// TODO Auto-generated method stub
+		CriteriaBuilder criteriaBuilder = this.entityManager.getCriteriaBuilder();
+		CriteriaQuery<Estudiante> criteriaQuery = criteriaBuilder.createQuery(Estudiante.class);
+		Root<Estudiante> root = criteriaQuery.from(Estudiante.class);
+		Predicate predicateFacultad = criteriaBuilder.equal(root.get("facultad"), facultad);
+		Predicate predicateCarrera = criteriaBuilder.equal(root.get("carrera"), carrera);
+		Predicate predicateFinal = criteriaBuilder.or(predicateFacultad,predicateCarrera);
+		criteriaQuery.select(root).where(predicateFinal).orderBy(criteriaBuilder.asc(root.get("numeroMatricula")));
+		TypedQuery<Estudiante> typedQuery = this.entityManager.createQuery(criteriaQuery);
+		return typedQuery.getResultList();
+	}
+
+	@Override
+	public Estudiante buscarPorNumeroMatriculaNombreApellidoCriteriaQuery(String numeroMatricula, String nombre,
+			String apellido) {
+		// TODO Auto-generated method stub
+		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
+		CriteriaQuery<Estudiante> criteriaQuery = builder.createQuery(Estudiante.class);
+		Root<Estudiante> root = criteriaQuery.from(Estudiante.class);
+		Predicate predicateNumeroMatricula = builder.equal(root.get("numeroMatricula"),numeroMatricula);
+		Predicate predicateNombre = builder.equal(root.get("nombre"), nombre);
+		Predicate predicateApellido = builder.equal(root.get("apellido"), apellido);
+		criteriaQuery.select(root).where(predicateNombre,predicateApellido,predicateNumeroMatricula);
+		TypedQuery<Estudiante> query = this.entityManager.createQuery(criteriaQuery);
+		return query.getSingleResult();
+	}
+
+
 
 }

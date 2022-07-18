@@ -34,4 +34,8 @@ public interface IEstudianteRepository {
 	
 	public List<Estudiante> buscarPorEstadoCivilOGeneroNamedNative(String estadoCivil, String genero);
 	
+	public List<Estudiante> buscarPorFacultadOCarreraCriteriaQuery(String facultad, String carrera);
+	
+	public Estudiante buscarPorNumeroMatriculaNombreApellidoCriteriaQuery(String numeroMatricula, String nombre, String apellido);
+
 }

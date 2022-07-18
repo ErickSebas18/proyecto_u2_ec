@@ -98,4 +98,17 @@ public class EstudianteServiceImpl implements IEstudianteService {
 		return this.estudianteRepository.buscarPorEstadoCivilOGeneroNamedNative(estadoCivil, genero);
 	}
 
+	@Override
+	public List<Estudiante> buscarPorFacultadOCarreraCriteriaQuery(String facultad, String carrera) {
+		// TODO Auto-generated method stub
+		return this.estudianteRepository.buscarPorFacultadOCarreraCriteriaQuery(facultad, carrera);
+	}
+
+	@Override
+	public Estudiante buscarPorNumeroMatriculaNombreApellidoCriteriaQuery(String numeroMatricula, String nombre,
+			String apellido) {
+		// TODO Auto-generated method stub
+		return this.estudianteRepository.buscarPorNumeroMatriculaNombreApellidoCriteriaQuery(numeroMatricula, nombre, apellido);
+	}
+
 }
