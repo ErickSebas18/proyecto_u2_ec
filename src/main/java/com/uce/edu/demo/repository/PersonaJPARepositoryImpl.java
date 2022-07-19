@@ -15,6 +15,8 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import com.uce.edu.demo.repository.modelo.Persona;
+import com.uce.edu.demo.repository.modelo.PersonaContadorGenero;
+import com.uce.edu.demo.repository.modelo.PersonaSencilla;
 
 @Repository
 @Transactional
@@ -130,8 +132,9 @@ public class PersonaJPARepositoryImpl implements IPersonaJPARepository {
 		} else {
 			predicateFinal = myCriteria.or(predicateNombre, predicateApellido);
 		}
-		
-		TypedQuery<Persona> queryFinal = this.entityManager.createQuery(criteriaQuery.select(myTable).where(predicateFinal));
+
+		TypedQuery<Persona> queryFinal = this.entityManager
+				.createQuery(criteriaQuery.select(myTable).where(predicateFinal));
 		return queryFinal.getSingleResult();
 	}
 
@@ -205,9 +208,29 @@ public class PersonaJPARepositoryImpl implements IPersonaJPARepository {
 			predicateFinal = myCriteria.and(predicateNombre, predicateApellido);
 			predicateFinal = myCriteria.or(predicateNombre, predicateApellido);
 		}
-		
-		TypedQuery<Persona> queryFinal = this.entityManager.createQuery(criteriaQuery.select(myTable).where(predicateFinal));
+
+		TypedQuery<Persona> queryFinal = this.entityManager
+				.createQuery(criteriaQuery.select(myTable).where(predicateFinal));
 		return queryFinal.getSingleResult();
+	}
+
+	@Override
+	public List<PersonaSencilla> buscarPorApellidoPersonaSencilla(String apellido) {
+		// TODO Auto-generated method stub
+		TypedQuery<PersonaSencilla> query = this.entityManager.createQuery(
+				"Select new com.uce.edu.demo.repository.modelo.PersonaSencilla(p.nombre,p.apellido) from Persona p where p.apellido = :apellido",
+				PersonaSencilla.class);
+		query.setParameter("apellido", apellido);
+		return query.getResultList();
+	}
+
+	@Override
+	public List<PersonaContadorGenero> contarPersonasGenero() {
+		// TODO Auto-generated method stub
+		TypedQuery<PersonaContadorGenero> query = this.entityManager.createQuery(
+				"Select new com.uce.edu.demo.repository.modelo.PersonaContadorGenero(p.genero,count(p.genero)) from Persona p group by p.genero",
+				PersonaContadorGenero.class);
+		return query.getResultList();
 	}
 
 }
