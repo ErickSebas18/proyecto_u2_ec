@@ -15,6 +15,8 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import com.uce.edu.demo.repository.modelo.Estudiante;
+import com.uce.edu.demo.repository.modelo.EstudianteFacultadGenero;
+import com.uce.edu.demo.repository.modelo.EstudianteSencillo;
 
 @Repository
 @Transactional
@@ -157,7 +159,7 @@ public class EstudianteRepositoryImpl implements IEstudianteRepository {
 		Root<Estudiante> root = criteriaQuery.from(Estudiante.class);
 		Predicate predicateFacultad = criteriaBuilder.equal(root.get("facultad"), facultad);
 		Predicate predicateCarrera = criteriaBuilder.equal(root.get("carrera"), carrera);
-		Predicate predicateFinal = criteriaBuilder.or(predicateFacultad,predicateCarrera);
+		Predicate predicateFinal = criteriaBuilder.or(predicateFacultad, predicateCarrera);
 		criteriaQuery.select(root).where(predicateFinal).orderBy(criteriaBuilder.asc(root.get("numeroMatricula")));
 		TypedQuery<Estudiante> typedQuery = this.entityManager.createQuery(criteriaQuery);
 		return typedQuery.getResultList();
@@ -170,14 +172,32 @@ public class EstudianteRepositoryImpl implements IEstudianteRepository {
 		CriteriaBuilder builder = this.entityManager.getCriteriaBuilder();
 		CriteriaQuery<Estudiante> criteriaQuery = builder.createQuery(Estudiante.class);
 		Root<Estudiante> root = criteriaQuery.from(Estudiante.class);
-		Predicate predicateNumeroMatricula = builder.equal(root.get("numeroMatricula"),numeroMatricula);
+		Predicate predicateNumeroMatricula = builder.equal(root.get("numeroMatricula"), numeroMatricula);
 		Predicate predicateNombre = builder.equal(root.get("nombre"), nombre);
 		Predicate predicateApellido = builder.equal(root.get("apellido"), apellido);
-		criteriaQuery.select(root).where(predicateNombre,predicateApellido,predicateNumeroMatricula);
+		criteriaQuery.select(root).where(predicateNombre, predicateApellido, predicateNumeroMatricula);
 		TypedQuery<Estudiante> query = this.entityManager.createQuery(criteriaQuery);
 		return query.getSingleResult();
 	}
 
+	@Override
+	public EstudianteSencillo buscarEstudianteSencillo(String numeroMatricula, String carrera) {
+		// TODO Auto-generated method stub
+		TypedQuery<EstudianteSencillo> query = this.entityManager.createQuery(
+				"Select new com.uce.edu.demo.repository.modelo.EstudianteSencillo(e.numeroMatricula, e.nombre, e.apellido, e.carrera) from Estudiante e where e.numeroMatricula = :numeroMatricula and e.carrera = :carrera",
+				EstudianteSencillo.class);
+		query.setParameter("numeroMatricula", numeroMatricula);
+		query.setParameter("carrera", carrera);
+		return query.getSingleResult();
+	}
 
+	@Override
+	public List<EstudianteFacultadGenero> contarEstudiantePorFacultadYCarrera() {
+		// TODO Auto-generated method stub
+		TypedQuery<EstudianteFacultadGenero> query = this.entityManager.createQuery(
+				"Select new com.uce.edu.demo.repository.modelo.EstudianteFacultadGenero(e.facultad, e.carrera, e.estadoCivil, count(e.estadoCivil)) from Estudiante e group by e.facultad, e.carrera, e.estadoCivil order by e.facultad asc",
+				EstudianteFacultadGenero.class);
+		return query.getResultList();
+	}
 
 }

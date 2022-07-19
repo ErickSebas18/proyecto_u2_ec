@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.uce.edu.demo.repository.IEstudianteRepository;
 import com.uce.edu.demo.repository.modelo.Estudiante;
+import com.uce.edu.demo.repository.modelo.EstudianteFacultadGenero;
+import com.uce.edu.demo.repository.modelo.EstudianteSencillo;
 
 @Service
 public class EstudianteServiceImpl implements IEstudianteService {
@@ -109,6 +111,18 @@ public class EstudianteServiceImpl implements IEstudianteService {
 			String apellido) {
 		// TODO Auto-generated method stub
 		return this.estudianteRepository.buscarPorNumeroMatriculaNombreApellidoCriteriaQuery(numeroMatricula, nombre, apellido);
+	}
+
+	@Override
+	public EstudianteSencillo buscarEstudianteSencillo(String numeroMatricula, String carrera) {
+		// TODO Auto-generated method stub
+		return this.estudianteRepository.buscarEstudianteSencillo(numeroMatricula, carrera);
+	}
+
+	@Override
+	public List<EstudianteFacultadGenero> contarEstudiantePorFacultadYCarrera() {
+		// TODO Auto-generated method stub
+		return this.estudianteRepository.contarEstudiantePorFacultadYCarrera();
 	}
 
 }

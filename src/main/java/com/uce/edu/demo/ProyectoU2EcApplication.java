@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.uce.edu.demo.repository.modelo.Estudiante;
+import com.uce.edu.demo.repository.modelo.EstudianteFacultadGenero;
 import com.uce.edu.demo.repository.modelo.PersonaContadorGenero;
 import com.uce.edu.demo.repository.modelo.PersonaSencilla;
 import com.uce.edu.demo.service.IEstudianteService;
@@ -33,16 +34,13 @@ public class ProyectoU2EcApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 
-		List<PersonaSencilla> personas = this.personaJPAService.buscarPorApellidoPersonaSencilla("Erazo");
-		for (PersonaSencilla p : personas) {
-			logJava.info("Persona Sencilla: " + p);
-		}
+		logJava.info("Estudiante Sencillo: " + this.estudianteService.buscarEstudianteSencillo("76431", "Medicina"));
 		
-		List<PersonaContadorGenero> personasGenero = this.personaJPAService.contarPersonasGenero();
-		for (PersonaContadorGenero p : personasGenero) {
-			logJava.info("Persona Contador Genero: " + p);
-		}
+		List<EstudianteFacultadGenero> facultadGeneros = this.estudianteService.contarEstudiantePorFacultadYCarrera();
 		
+		for(EstudianteFacultadGenero e : facultadGeneros) {
+			logJava.info("Contar Estudiante Facultad, Carrera y Género: " + e);
+		}
 	}
 
 }

@@ -3,6 +3,8 @@ package com.uce.edu.demo.repository;
 import java.util.List;
 
 import com.uce.edu.demo.repository.modelo.Estudiante;
+import com.uce.edu.demo.repository.modelo.EstudianteFacultadGenero;
+import com.uce.edu.demo.repository.modelo.EstudianteSencillo;
 
 public interface IEstudianteRepository {
 
@@ -38,4 +40,8 @@ public interface IEstudianteRepository {
 	
 	public Estudiante buscarPorNumeroMatriculaNombreApellidoCriteriaQuery(String numeroMatricula, String nombre, String apellido);
 
+	public EstudianteSencillo buscarEstudianteSencillo(String numeroMatricula, String carrera);
+	
+	public List<EstudianteFacultadGenero> contarEstudiantePorFacultadYCarrera();
+	
 }
