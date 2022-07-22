@@ -54,7 +54,6 @@ public class Empleado {
 		this.salario = salario;
 	}
 
-	
 	public Ciudadano getCiudadano() {
 		return ciudadano;
 	}
