@@ -1,7 +1,8 @@
-package com.uce.edu.demo.repository.modelo;
+package com.uce.edu.demo.repository.modelo.onetoone;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ public class Empleado {
 	private String codigoIess;
 	@Column(name = "empl_salario")
 	private BigDecimal salario;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "empl_id_ciudadano")
 	private Ciudadano ciudadano;
 
