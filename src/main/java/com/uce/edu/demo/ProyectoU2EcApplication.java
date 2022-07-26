@@ -1,6 +1,8 @@
 package com.uce.edu.demo;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +10,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.repository.modelo.onetomany.Autor;
-import com.uce.edu.demo.repository.modelo.onetomany.Libro;
+import com.uce.edu.demo.repository.modelo.manytomany.Autor;
+import com.uce.edu.demo.repository.modelo.manytomany.Libro;
 import com.uce.edu.demo.service.IAutorService;
 import com.uce.edu.demo.service.ILibroService;
 
@@ -32,21 +34,19 @@ public class ProyectoU2EcApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
 
+		Libro libro = new Libro();
+		libro.setTitulo("JPA");
+		libro.setCantidadPaginas(2000);
+		
 		Autor autor = new Autor();
-		autor.setNombre("Gerardo");
-		autor.setEdad(60);
-		autor.setFechaNacimiento(LocalDateTime.now());
-		autor.setCodigoAutor("7894");
+		autor.setNombre("Maria Hernandez");
+		
+		Set<Autor> autores = new HashSet<>();
+		autores.add(autor);
 
-		// this.autorService.insertar(autor);
-		logJava.info("Se ha insertado un autor" + autor);
-
-		logJava.info("Buscar un autor" + this.autorService.buscar("86241"));
-
-		logJava.info("Se ha actualizado el autor: " + this.autorService.actualizar("Alfredo", 55));
-
-		logJava.info("Se ha eliminado el autor: " + this.autorService.eliminar("62314"));
-
+		libro.setAutores(autores);
+		
+		this.libroService.insertar(libro);
 	}
 
 }

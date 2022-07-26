@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import com.uce.edu.demo.repository.modelo.onetomany.Autor;
+import com.uce.edu.demo.repository.modelo.manytomany.Autor;
 
 @Repository
 @Transactional
